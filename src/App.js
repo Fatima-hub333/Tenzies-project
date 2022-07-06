@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-key */
@@ -8,12 +9,16 @@ import './index.css';
 
 export default function App() {
 /**
- * Challenge: Update the array of numbers in state to be
- * an array of objects instead. Each object should look like:
- * { value: <random number>, isHeld: false }
+ * Challenge: Create a function `holdDice` that takes
+ * `id` as a parameter. For now, just have the function
+ * console.log(id).
  *
- * Making this change will break parts of our code, so make
- * sure to update things so we're back to a working state
+ * Then, figure out how to pass that function down to each
+ * instance of the Die component so when each one is clicked,
+ * it logs its own unique ID property. (Hint: there's more
+ * than one way to make that work, so just choose whichever
+ * you want)
+ *
  */
 
   const [dice, setDice] = React.useState(allNewDice());
@@ -34,11 +39,16 @@ export default function App() {
     setDice(allNewDice());
   }
 
+  function holdDice(id) {
+    console.log(id);
+  }
+
   const diceElements = dice.map((die) => (
     <Die
       key={die.id}
       value={die.value}
       isHeld={die.isHeld}
+      holdDice={() => holdDice(die.id)}
     />
   ));
 
