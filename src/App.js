@@ -1,26 +1,40 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/jsx-key */
 import React from 'react';
+import { nanoid } from 'nanoid';
 import Die from './Die';
 import './index.css';
 
-const App = () => {
-  const [dice, setDice] = React.useState(allNewDice())
-  // new array to hold my numbers
-  // loop 10 times
-  // push a random number from 1-6 to my array
-  // return array
+export default function App() {
+/**
+ * Challenge: Update the array of numbers in state to be
+ * an array of objects instead. Each object should look like:
+ * { value: <random number>, isHeld: false }
+ *
+ * Making this change will break parts of our code, so make
+ * sure to update things so we're back to a working state
+ */
+
+  const [dice, setDice] = React.useState(allNewDice());
+
   function allNewDice() {
     const newDice = [];
     for (let i = 0; i < 10; i += 1) {
-      newDice.push(Math.ceil(Math.random()* 6) );
+      newDice.push({
+        value: Math.ceil(Math.random() * 6),
+        isHeld: false,
+        id: nanoid(),
+      });
     }
     return newDice;
   }
 
   function rollDice() {
-    setDice(allNewDice())
+    setDice(allNewDice());
   }
 
-  const diceElements = dice.map(die => <Die value={die}/>)
+  const diceElements = dice.map((die) => <Die key={die.id} value={die.value} />);
 
   return (
     <main>
@@ -30,5 +44,4 @@ const App = () => {
       <button className="roll-dice" onClick={rollDice}>Roll</button>
     </main>
   );
-};
-export default App;
+}
