@@ -25,6 +25,9 @@ Additional description about the project and its features.
   - github
   - npm
 
+![screenshot](Tanzies-Game.png)
+
+## [Live Demo]("https://helpful-concha-96e6ad.netlify.app/")
 ## Getting Started
 
 **This are steps on how to install the react app.**
