@@ -6,15 +6,22 @@
 /* eslint-disable react/jsx-key */
 import React from 'react';
 import { nanoid } from 'nanoid';
+import Confetti from 'react-confetti';
 import Die from './Die';
 import './index.css';
 
 export default function App() {
   const [dice, setDice] = React.useState(allNewDice());
-  const [tenziez, setTenzies] = React.useState(false);
+  const [tenzies, setTenzies] = React.useState(false);
 
   React.useEffect(() => {
-    console.log('Dice state changed');
+    const allHeld = dice.every((die) => die.isHeld);
+    const firstValue = dice[0].value;
+    const allSameValue = dice.every((die) => die.value === firstValue);
+    if (allHeld && allSameValue) {
+      setTenzies(true);
+      console.log('You won!');
+    }
   }, [dice]);
 
   function generateNewDie() {
@@ -57,6 +64,7 @@ export default function App() {
 
   return (
     <main>
+      {tenzies && <Confetti />}
       <h1 className="title">Tenzies</h1>
       <p className="instructions">
         Roll until all dice are the same.
@@ -65,7 +73,12 @@ export default function App() {
       <div className="dice-container">
         {diceElements}
       </div>
-      <button className="roll-dice" onClick={rollDice}>Roll</button>
+      <button
+        className="roll-dice"
+        onClick={rollDice}
+      >
+        {tenzies ? 'New Game' : 'Roll'}
+      </button>
     </main>
   );
 }
