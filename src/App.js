@@ -11,6 +11,11 @@ import './index.css';
 
 export default function App() {
   const [dice, setDice] = React.useState(allNewDice());
+  const [tenziez, setTenzies] = React.useState(false);
+
+  React.useEffect(() => {
+    console.log('Dice state changed');
+  }, [dice]);
 
   function generateNewDie() {
     return {
