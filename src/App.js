@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-console */
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/button-has-type */
@@ -8,19 +9,6 @@ import Die from './Die';
 import './index.css';
 
 export default function App() {
-/**
- * Challenge: Create a function `holdDice` that takes
- * `id` as a parameter. For now, just have the function
- * console.log(id).
- *
- * Then, figure out how to pass that function down to each
- * instance of the Die component so when each one is clicked,
- * it logs its own unique ID property. (Hint: there's more
- * than one way to make that work, so just choose whichever
- * you want)
- *
- */
-
   const [dice, setDice] = React.useState(allNewDice());
 
   function allNewDice() {
@@ -40,7 +28,9 @@ export default function App() {
   }
 
   function holdDice(id) {
-    console.log(id);
+    setDice((oldDice) => oldDice.map((die) => (die.id === id
+      ? { ...die, isHeld: !die.isHeld }
+      : die)));
   }
 
   const diceElements = dice.map((die) => (
